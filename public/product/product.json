@@ -1,0 +1,62 @@
+{
+	"fields": [{
+			"name": "category_id",
+			"type": "select",
+			"options": {
+				"technology": "Technology",
+				"tips": "Tips",
+				"health": "Health"
+			}
+		},
+		{
+			"name": "Product_name",
+			"type": "string"
+
+		},
+		{
+			"name": "Price",
+			"type": "float"
+		},
+		{
+			"name": "Product_color",
+			"type": "string"
+		},
+
+		{
+			"name": "Product_Description",
+			"type": "text"
+		},
+		{
+			"name": "Product_code",
+			"type": "string"
+		}
+
+
+
+
+
+	],
+
+	"validations": [{
+			"field": "category",
+			"rules": "required"
+		},
+		{
+			"field": "product name",
+			"rules": "required"
+		}, {
+			"field": "Price",
+			"rules": "required"
+		}, {
+			"field": "Product color",
+			"rules": "required"
+		}, {
+			"field": "Product code",
+			"rules": "required"
+		}, {
+			"field": "Product Description",
+			"rules": "required"
+		}
+
+	]
+}

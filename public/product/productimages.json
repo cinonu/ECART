@@ -1,0 +1,24 @@
+{
+    "fields": [{
+            "name": "product_id",
+            "type": "number"
+        },
+        {
+            "name": "image",
+            "type": "file"
+        } 
+    ],
+    "validations": [{
+            "field": "title",
+            "rules": "required"
+        },
+        {
+            "field": "context",
+            "rules": "required"
+        },
+        {
+            "field": "image",
+            "rules": "required"
+        }
+    ]
+}
