@@ -1,6 +1,9 @@
 <?php
 
 use App\configuration;
+use App\order;
+use App\OrderProduct;
+use App\EmailTemplates;
 
 // if (!function_exists('getconfig')) 
 // {
@@ -98,7 +101,64 @@ use App\configuration;
                 'product_image' => $product_image,
             ]);
     }
+    
+    function Orderstore($request,$error)
+    {
+        $order = new order();
+         $order->users_id = request('users_id');
+         $order->users_email = request('users_email');
+         $order->name = request('name');
+         $order->address = request('address');
+         $order->city = request('city');
+         $order->state = request('state');
+         $order->pincode = request('pincode');
+         $order->mobile = request('mobile');
+         $order->shipping_charges = request('shipping_charges');
+         $order->coupon_code = request('coupon_code');
+         $order->payment_method = request('payment_method');
+         $order->coupon_amount = session()->get('Coupon')['discount'] ?? 0;
+         $order->product_name = productdetails()->get('product_name');
+         $order->product_image = productdetails()->get('product_image');
+         $order->grand_total = getprice()->get('newTotal');
+         $order->product_id = request('product_id');
+         $order->product_qty = productdetails()->get('product_qty'); 
+         $order->errror = $error ;
+       
+         foreach(Cart::content() as $item)
 
+         {
+            OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $item->id,
+                'quantity' => $item->qty,
+            ]);
+         }
+         $order->save();
+        
+          // dd($order->payment_method);
+        if(request('payment_method')=="COD")
+        {
+            return redirect('/cod');
+        }else
+        {
+            return redirect('/paypal');
+        }
+
+
+       
+         
+    }
+    function emailTemplate($slug)
+    {
+        return $email = EmailTemplates::where('slug',$slug)->first();
+    }
+
+    // function PaymentStatus()
+    // {
+    //     $message = "User canceled The Payment";
+    //      $order = order::findOrFail(Auth::user()->id);
+    //      dd($order);
+    // }
 
 
 

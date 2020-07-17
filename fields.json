@@ -1,52 +1,60 @@
 {
     "fields": [{
-            "name": "firstname",
+            "name": "slug",
             "type": "string"
         },
         {
-            "name": "lastname",
+            "name": "image",
+            "type": "file"
+        },
+        {
+            "name": "title",
             "type": "string"
         },
         {
-            "name": "email",
-            "type": "email"
+            "name": "body",
+            "type": "text"
         },
         {
-            "name": "password",
-            "type": "password"
+            "name": "other_title",
+            "type": "string"
         },
         {
-            "name": "confirmpassword",
-            "type": "password"
-        },
-        {
-            "name": "status",
-            "type": "radio"
-        },
-        {
-            "name": "role",
-            "type": "select",
-            "options": {
-                "admin": "Admin"
-            }
+            "name": "foooter",
+            "type": "string"
         }
     ],
-    "relationships": [{
-        "name": "user",
-        "type": "belongsTo",
-        "class": "App\\User"
-    }],
     "validations": [{
-            "field": "firstname",
-            "rules": "required"
+            "field": "slug",
+            "rules": "unique"
         },
         {
-            "field": "lastname",
+            "field": "image",
             "rules": "required"
         },
+         {
+            "field": "title",
+            "rules": "required"
+        },
+         {
+            "field": "body",
+            "rules": "required"
+        },
+         {
+            "field": "image",
+            "rules": "required"
+        },
+         {
+            "field": "other_title",
+            "rules": "required"
+        },
+       
+       
+       
+       
         {
-            "field": "email",
-            "rules": "required|email:rfc,dns"
+            "field": "foooter",
+            "rules": "required"
         }
     ]
 }

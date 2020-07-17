@@ -69,6 +69,23 @@ route::get('productprice','Admin\\productController@ProPrice');
 Route::post('/cart','ApplyCouponController@store')->name('Coupon');
 Route::delete('/cart','ApplyCouponController@destroy')->name('Coupon.destroy');
 Auth::routes();
+////////////////////PAY_PAL/////////////////////////////////////////
+Route::get('paypal/{id}', 'OrdersControllers@payment')->name('payment');
+Route::get('cancel', 'OrdersControllers@cancel')->name('payment.cancel');
+Route::get('payment/success', 'OrdersControllers@success')->name('payment.success');
+Route::get('/cod','OrdersControllers@cod');
+    // Route::get('/paypal','OrdersController@paypal');
+////////////////////////////////////////////////////////////////////////////////////
+////////////////mail/////////////////////////////////////////////////
+route::get('/email',function(){
+   return view('mail');
+});
+route::POST('/admin/contactus/remail','MailController@basic_email')->name('reply_mail');
+/////////////////////////////////////////////////////////////////////
+
+Route::get('home/{cm}', 'PagesController@show'); 
+Route::get('home/','FooterController@page'); 
+
 
 // Route::post('login','HomeController@index')->name('frontend.login');
 // /route::group('/home',function(){
@@ -82,6 +99,7 @@ Auth::routes();
  //  return view('home');
  // });
  route::get('newsletter','Frontend\\NewsLetterController@index')->name('newsletter');
+
     
  
   route::group(['middleware'=>'web'],function(){
@@ -113,6 +131,9 @@ Route::get('admin',function(){
   Route::resource('admin/product', 'Admin\\productController');
   Route::resource('admin/coupons', 'Admin\\CouponController');
   Route::resource('admin/ManageOrders','Admin\\ManageOrderController');
+  Route::resource('admin/Contactus','Admin\\ContactusController');
+  Route::resource('admin/cms', 'Admin\\cmsController');
+  Route::resource('admin/EmailTemplates','EmailTemplatesController');
   
   Route::post('admin/product/{product?}/images','Admin\\ProductImagesController@store')->name('image');
   Route::get('admin/product/{product?}/images','Admin\\ProductImagesController@create')->name('images');
@@ -123,4 +144,5 @@ Route::get('admin',function(){
 
 
  });
+
 

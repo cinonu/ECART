@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class
         // Skovmand\Mailchimp\MailchimpServiceProvider::class,
     ],
 
@@ -229,7 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Helper' => App\Helpers\Helper::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
 
     ],
 

@@ -183,12 +183,12 @@ class productController extends Controller
     {
       
        $cat_id = $request->category_id;
-       $products = Db::table('product_images')
-             ->join('products','products.id','product_images.product_id')
+       $products = Db::table('products')
+             ->join('product_images','product_images.product_id','products.id')
              ->join('categories','categories.id','products.category_id')
              ->where('products.category_id',$cat_id)
              ->get();
-    
+      // dd($products);
        
         return view('Frontend.procat',compact('products'));
 

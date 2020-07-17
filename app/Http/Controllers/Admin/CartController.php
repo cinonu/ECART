@@ -36,6 +36,10 @@ class CartController extends Controller
         $newtotal = 0;
        
          }
+
+         $user = Auth()->user()->email;
+         Cart::restore($user);
+    
         // $user = Auth::user()->email;
          
         // Cart::restore($user);
@@ -71,6 +75,9 @@ class CartController extends Controller
         $img = $product->images->first();
         $image = $img->image;
         (Cart::add($request->id,$request->name,1,$request->price,['img' => $image,$request->size]));
+        $user = Auth()->user()->email;
+        Cart::restore($user);
+    
         
 
         return redirect()->route('cart.index')->with('success_message','Item was added to the cart');
@@ -99,7 +106,11 @@ class CartController extends Controller
     {
         $req = $request->qtyremove;
         Cart::update($rowId,$req-1);
+         $user = Auth()->user()->email;
+         Cart::store($user);
+       
         return redirect(url('/cart'));
+         
     }
 
     /**
@@ -113,7 +124,11 @@ class CartController extends Controller
     {
         $req = $request->qtyadd;
         Cart::update($rowId,$req+1);
+           $user = Auth()->user()->email;
+        Cart::store($user);
+      
         return redirect(url('/cart'));
+        
 
     }
 
@@ -128,6 +143,8 @@ class CartController extends Controller
     public function destroy($rowId)
     {  
        Cart::remove($rowId);
+        $user = Auth()->user()->email;
+        Cart::store($user);
        return redirect(url('/cart'));
     }
 }

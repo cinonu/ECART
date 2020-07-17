@@ -21,15 +21,14 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column"  role="menu" >
+         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+       
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             {{-- <a href="#" class="nav-link active"> --}}
-            </a>
             <ul class="nav nav-treeview">
-             
-              <li class="nav-item">
+               <li class="nav-item">
                 <a href="{{asset('admin/user')}}" class="nav-link">
                   <i class="nav-icon fa fa-user"></i>
               <p>Manage Users</p>
@@ -74,19 +73,54 @@
                   <p>order management</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <a href="{{asset('admin/Contactus')}}" class="nav-link">
+                 <i style='font-size:19px' class='fas'>&#xf3ff;</i>
+                 <p>Raised Tickets</p>
+                </a>
+              </li>
+
               <li class="nav-item">
                 <a href="{{asset('admin/Reports')}}" class="nav-link">
                  <i class="fa fa-book"></i>
                  <p>Reports</p>
                 </a>
               </li>
+              <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                ADD PAGES
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{asset('admin/cms')}}" class="nav-link">
+               <i class="fa fa-file" aria-hidden="true"></i>
+                <p>Add About US PAGE</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{asset('admin/EmailTemplates')}}" class="nav-link">
+               <i class="fa fa-file" aria-hidden="true"></i>
+                <p>CHANGE EMAIL TEMPLATE</p>
+                </a>
+              </li>
+               
+            </ul>
+          </li>
+          
+
+
+
 
 
 
                 </ul>
                
-               </ul>
           </li>
+
 
            {{-- <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">

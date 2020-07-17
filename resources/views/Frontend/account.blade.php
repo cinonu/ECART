@@ -33,7 +33,7 @@
         <br>
     </div>
     @endguest
-  
+ @auth 
 <body>
     <header id="header"><!--header-->
         <div class="header_top"><!--header_top-->
@@ -225,3 +225,4 @@
         </div>
     </div>
     <div style="margin-bottom: 20px;"></div>
+    @endauth

@@ -148,8 +148,12 @@
 				</ol>
 			</div>
 			@if(Cart::Count() == 0) 
-			
-			your cart is empty
+			 <div class="container">
+        <h3 class="text-center">YOUR CART IS EMPTY</h3>
+        <p class="text-center">CHECKOUT FROM OUR GREAT COLLECTION</p>
+          </div>
+    <div style="margin-bottom: 20px;"></div>
+ 
 			@endif
 			
 			@if(Cart::Count() > 0) 

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
+use Mail;
 use App\order;
+use App\user;
 
 class ManageOrderController extends Controller
 {
@@ -75,12 +78,30 @@ class ManageOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $requestData = $request->all();
-        
-        $order = order::findOrFail($id);
+        $order_status = $request->order_status;
+        $order = order::findOrFail($id); 
+        $user_id=$order->users_id;
+        $name = $order ->name;
+
+        $user_info = DB::table('users')->where('id',$user_id)->get();
+        $email = $user_info[0]->email;
        
         $order->update($requestData);
-          $order->save();
+        $data = array('subject'=> $order_status,
+                      'email'=>$email,
+                      'name'=>$name,
+                      'id'=>$id
+                    );
+   
+
+        Mail::send('orderstatus', $data, function($message) use ($email, $order_status) {
+            $message->from('harshnarigra1530@gmail.com','ADMIN');
+            $message->to($email)->subject
+            ('Status of your Recent order');
+        });
+    
         
         return back()->with('message','Update Attribute Successed');
     

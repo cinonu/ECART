@@ -9,6 +9,7 @@ use App\banner;
 use App\product;
 use App\User;
 use App\Category;
+use App\cm;
 use Cart;
 
 class Frontendshow extends Controller
@@ -34,8 +35,9 @@ class Frontendshow extends Controller
    	  $categories = DB::table('categories')->where('parent_id', NULL)->get();
         // dd($categories);
    	  $product = product::all();
+      $cms = cm::all();
       // dd($product);
-   	  return view('Frontend.content',compact('banner','product','user','categories','category','featured_products'));
+   	  return view('Frontend.content',compact('banner','product','user','categories','category','featured_products','cms'));
 
    }
 
