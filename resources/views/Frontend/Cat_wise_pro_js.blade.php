@@ -1,22 +1,22 @@
 
+
 <script>
 $(document).ready(function(){
     @foreach(App\category::all() as $cat)
      $("#cat{{$cat->id}}").click(function(){
-	   var cat = $("#cat{{$cat->id}}").val();
-		$.ajax({
+       var cat = $("#cat{{$cat->id}}").val();
+        $.ajax({
          type:'get',
          dataType:'html',
-         url:'{{url('productCat')}}',
-         
+         url:'{{url('cat_wise_pro')}}',
          data:'category_id='+ cat,
          success:function(response){
-         	
-         	$("#productData").html(response);
+            
+            $("#CatwiseproductData").html(response);
          }
 
-		});
-	});
+        });
+    });
      @endforeach
 });
 </script>

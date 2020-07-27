@@ -21,6 +21,7 @@ class Frontendshow extends Controller
    	   // $category = Category::with('products')->find($catid);
    	   $category = Category::all();
        
+      
        $featured_products =  Product::paginate(6);
    	   
 
@@ -36,8 +37,15 @@ class Frontendshow extends Controller
         // dd($categories);
    	  $product = product::all();
       $cms = cm::all();
-      // dd($product);
-   	  return view('Frontend.content',compact('banner','product','user','categories','category','featured_products','cms'));
+
+      $item = product::where('category_id',1)->take(4)->get();
+
+      
+
+
+       // dd($pro); 
+      
+   	  return view('Frontend.content',compact('banner','product','user','categories','category','featured_products','cms','item'));
 
    }
 

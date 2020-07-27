@@ -34,8 +34,8 @@
   	@auth
  
         
-  	 	{{Cart::restore(Auth()->user()->email)}}
-    
+  	 {{-- 	{{Cart::restore(Auth()->user()->email)}}
+     --}}
     <body>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -65,9 +65,9 @@
 		</div><!--/header_top-->
 		
 		<div class="header-middle"><!--header-middle-->
-			@if(session()->has('success'))
+			@if(session()->has('success_message'))
 			   <div class="alert alert success">
-			   	{{session()->get('success')}}
+			   	{{session()->get('success_message')}}
 			   </div>
 			   @endif
 			<div class="container">
@@ -76,15 +76,35 @@
 						<div class="logo pull-left">
 							<a href="index.html"><img src="{{('Frontend/images/home/logo.png')}}" alt="" /></a>
 						</div>
-						
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									USA
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="">Canada</a></li>
+									<li><a href="">UK</a></li>
+								</ul>
+							</div>
+							
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+									DOLLAR
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="">Canadian Dollar</a></li>
+									<li><a href="">Pound</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="{{route('Wishlistshow')}}"><i class="fa fa-star"></i> Wishlist</a></li>
-								@if(Cart::Count() != 0) 
-								<li><a href="{{route('checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								@endif
+								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
+								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								{{-- <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li> --}}
 							</ul>
 						</div>
@@ -105,13 +125,13 @@
 								<span class="icon-bar"></span>
 							</button>
 						</div>
-						{{-- <div class="mainmenu pull-left">
+						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.html">Home</a></li>
 								
 								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
-						</div> --}}
+						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
@@ -131,17 +151,15 @@
 				  <li class="active">Shopping Cart</li>
 				</ol>
 			</div>
-			@if(Cart::Count() == 0) 
+			@if(Cart::instance('wishlist')->count() == 0) 
 			 <div class="container">
-        <h3 class="text-center">YOUR CART IS EMPTY</h3>
+        <h3 class="text-center">Nothing is Here</h3>
         <p class="text-center">CHECKOUT FROM OUR GREAT COLLECTION</p>
-        </div>
-    </div>
+          </div>
     <div style="margin-bottom: 20px;"></div>
  
 			@endif
 			
-			@if(Cart::Count() > 0) 
 			
             
 			<div class="table-responsive cart_info">
@@ -150,17 +168,15 @@
 						<tr class="cart_menu">
 							<td class="image">Item</td>
 							<td class="description">Name</td>
-							<td>Size</td>
-							<td class="quantity">Quantity</td>
-							
-							<td></td>
+							<td class="price">Price</td>
+							<td>Actions</td>
 						</tr>
 					</thead>
 					<tbody>
+						{{-- {{dd(Cart::instance('wishlist')->content())}} --}}
+						@foreach(Cart::instance('wishlist')->content() as $item)
 						
-						@foreach(Cart::content() as $item)
 						<tr>
-							
 							<td class="cart_product">
 							<a href=""><img src='{{ asset("upload/".$item->options->img)}}' alt=""></a>
 							</td>
@@ -168,42 +184,17 @@
 								<h4><a href="">{{$item->name}}s</a></h4>
 								{{-- <p>{{$item->options->img[0]}}</p> --}}
 							</td>
-							<td class="cart_description">
-								<h4><a href="">{{$item->options->size}}</a></h4>
-								{{-- <p>{{$item->options->img[0]}}</p> --}}
+							<td class="cart_price">
+								<p>{{$item->price}}</p>
 							</td>
-							
-							 <td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<form action="{{route('cart.update',$item->rowId)}}" method="post">
-										@csrf
-										@method('PUT')
-										<input class="cart_quantity_input" type="hidden" name="qtyadd" value="{{$item->qty}}" autocomplete="off" size="7">
-								
-									<a class="cart_quantity_up" href=""><button   type="submit"> + </button></a>
-								     </form>
-									
-									<input class="cart_quantity_input" type="fix" name="qty" value="{{$item->qty}}" autocomplete="off" size="5" readonly>
-								
-                                    <form action="{{route('cart.edit',$item->rowId)}}" method="post">
-										@csrf
-										@method('GET')
-										<input class="cart_quantity_input" type="hidden" name="qtyremove" value="{{$item->qty}}" autocomplete="off" size="7">
-								
-									<a class="cart_quantity_up" href=""><button  type="submit"> - </button></a>
-								   
-								</form>
-								</div>
-							</td>
-							<td class="cart_delete">
-							<form method="post" action="{{route('cart.destroy',$item->rowId)}}">
-								@csrf
-								@method('DELETE')
+							<td>
+							<form method="post" action="{{route('clear',$item->rowId)}}">
+							 @csrf
+							 @method('DELETE')
 							
 								<button type="submit" class="cart_quantity_delete"><i class="fa fa-times"></i></button>
 							</form>
 							</td>
-						
 						</tr>
                         @endforeach
 						
@@ -212,53 +203,7 @@
 			</div>
 		</div>
 	</section> <!--/#cart_items-->
-  	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-				<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">
-
-					<div class="total_area">
-                        <ul>
-                            <li><form action="{{route('Coupon')}}" method="POST" class="searchform">
-                                @csrf
-                                @method('POST')
-                                <input type="text" name="Coupon" placeholder="Apply Coupon code" />
-                                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-                              <p>Get the Discount</p>
-
-                            </form></li>
-                            <li>Cart Sub Total <span>INR {{Cart::subtotal()}}</span></li>
-                            {{-- <li>Eco Tax <span>INR {{Cart::tax()}}</span></li> --}}
-                             {{-- <li>Shipping Cost <span> {{(Cart::subtotal() < 1000) ? 'Free' : 'INR 100'}}</span></li> --}}
-                            @if(session()->has('Coupon'))
-                            <li> Discount ({{session()->get('Coupon')['name']}}) <span>INR {{session()->get('Coupon')['discount']}}</span>
-                            <form action="{{route('Coupon.destroy')}}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('delete')
-                            
-                            <button type="submit">Remove</button></form></li>
-                            <li>New subtotatal<span>INR {{$newsubtotal}}</span></li>
-                            
-
-                            @endif
-                            <li>Tax<span>INR {{$newTax}}</span></li>
-                            <li>New Total <span>INR {{$newtotal}}</span></li>
-                    
-                            {{-- <li>Total <span>INR {{Cart::total()}}</span></li> --}}
-                        </ul>
-                            <a class="btn btn-default check_out" href="{{url('/checkout')}}">Order Preview</a>
-                    </div>
-    
-				</div>
-			</div>
-		</div>
-	</section><!--/#do_action-->
-	@endif
-	
+  	
 
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">

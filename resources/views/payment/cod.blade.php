@@ -5,4 +5,4 @@
         <p class="text-center">We will contact you by Your Email (<b>{{$user_order->users_email}}</b>) or Your Phone Number (<b>{{$user_order->mobile}}</b>)</p>
     </div>
     <div style="margin-bottom: 20px;"></div>
- @include('Frontend.footer')
+ 

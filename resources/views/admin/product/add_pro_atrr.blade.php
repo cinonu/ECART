@@ -39,7 +39,7 @@
                {{-- <h5>List Products Attribute</h5> --}}
                         
                         <div class="widget-content nopadding">
-                            <form action="{{route('product_attribute.update',$product->id)}}" method="post" role="form">
+                            <form action="{{route('product_attribute.update',$product->id)}}" method="post" role="form"  display: inline; >
                                 {{method_field("PUT")}}
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <table class="table table-striped table-bordered">
@@ -69,15 +69,20 @@
                                         <input type="text" name="stock[]" id="stock" class="form-control" value="{{$attribute->stock}}" required="required" style="width: 75px;">
                                     </td>
                                     <td style="text-align: center; ">
-                                        <button type="submit" class="btn btn-success btn-mini">Edit</button>
-                                        <a href="javascript:" rel="{{$attribute->id}}" rel1="delete-attribute" class="btn btn-danger btn-mini deleteRecord">Delete</a>
+                                        <button style="float: left;" type="submit" class="btn btn-success btn-mini">Edit</button>
+                                     </form>
+                                     <form action="{{route('product_attribute.destroy',$product->id)}}" method="post"  display: inline; >
+                                        @csrf
+                                        @method('delete')                                         
+                                        <input type="hidden" name="id" value="{{$attribute->id}}">
+                                        <button type="submit" rel1="delete-attribute" class="btn btn-danger btn-mini deleteRecord"  display: inline; >Delete</button>
+                                    </form>
                                     </td>
                                 </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-                            </form>
-
+                           
         </div>
 
     </div>

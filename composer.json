@@ -9,9 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "fideloper/proxy": "^4.0",
+        "algolia/algoliasearch-client-php": "^2.2",
+        "cartalyst/stripe-laravel": "^11.0",
+        "fideloper/proxy": "^4.4",
         "hardevine/shoppingcart": "^2.8",
         "laravel/framework": "^6.2",
+        "laravel/scout": "^8.1",
         "laravel/tinker": "^2.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "spatie/laravel-newsletter": "^4.8",
@@ -65,4 +68,10 @@
             "@php artisan key:generate --ansi"
         ]
     }
+    
+   
+
+
+
+
 }

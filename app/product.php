@@ -2,18 +2,22 @@
 
 namespace App;
 use App\Category;
-
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 class product extends Model
 {
+    use Searchable;
+
     /**
      * The database table used by the model.
+
      *
      * @var string
      */
     protected $table = 'products';
 
+    
     /**
     * The database primary key value.
     *

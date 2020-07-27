@@ -102,33 +102,67 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="{{route('welcome')}}" class="active">Home</a></li>
-                                {{-- <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="{{route('productlist')}}">Products</a></li>
-                                        <li><a href="{{route('product')}}">Product Details</a></li> 
-                                        <li><a href="checkout.html">Checkout</a></li> 
-                                        <li><a href="cart.html">Cart</a></li> 
-                                        <li><a href="login.html">Login</a></li> 
-                                    </ul>
-                                </li> 
-                                 --}}<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="{{asset('blog.html')}}">Blog List</a></li>
-                                        <li><a href="{{asset('blog-single.html')}}">Blog Single</a></li>
-                                    </ul>
-                                </li> 
-                                {{-- <li><a href="{{asset('404.html')}}">404</a></li> --}}
-                                <li><a href="contact-us.html">Contact</a></li>
-                            </ul>
+                              </ul>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="search_box pull-right">
-                            <input type="text" placeholder="Search"/>
+                            <form action="{{route('search')}}" method="get">
+                                @csrf
+                                {{-- @method('GET') --}}
+                            <input type="text" placeholder="Search"/ value="{{request()->input('query')}}" name="query" id = "query">
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div><!--/header-bottom-->
     </header><!--/header-->
+		<section id="cart_items">
+		<div class="container">
+				<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="{{route('home')}}">Home</a></li>
+				  <li class="active">"{{$products->count()}}" Search Results Found For "{{request()->input('query')}}"</li>
+				</ol>
+			</div>
+		
+			
+    </div>
+    <div style="margin-bottom: 20px;"></div>
+ 
+			
+			
+            
+			<div class="table-responsive cart_info" >
+				{{-- <div class="col-sm-9"> --}}
+				<table class="table table-condensed" style="    margin-left: 275px;
+    width: 731px;
+">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description">Name</td>
+							
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($products as $pro)
+						<tr>
+							
+							<td class="cart_description">
+								<h2 style="margin-left: 165px;"><a href="{{route('product',$pro->id)}}"></h2>
+								<p><b>{{$pro->Product_name}}</b></p></a>
+							</td>
+							<td>
+								<h2><a href="{{route('product',$pro->id)}}"></h2>
+								<p><b>{{$pro->Product_Description}}</b></p></a>
+                            </td>
+							
+						</tr>
+                     	@endforeach
+					</tbody>
+				</table>
+			</div>
+
+	</section> <!--/#cart_items-->

@@ -1,4 +1,116 @@
-@include('Frontend.header')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="{{asset('Frontend/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('Frontend/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('Frontend/css/prettyPhoto.css')}}" rel="stylesheet">
+    <link href="{{asset('Frontend/css/price-range.css')}}" rel="stylesheet">
+    <link href="{{asset('Frontend/css/animate.css')}}" rel="stylesheet">
+    <link href="{{asset('Frontend/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('Frontend/css/responsive.css')}}" rel="stylesheet">
+    <script src="{{asset('https://js.stripe.com/v3/')}}"></script>
+
+  <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')}}"></script>
+  {{-- <script src="{{asset('ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js')}}"></script>        --}}
+    <link rel="shortcut icon" href="{{asset('Frontend/images/ico/favicon.ico')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('Frontend/images/ico/apple-touch-icon-144-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('Frontend/images/ico/apple-touch-icon-114-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('Frontend/images/ico/apple-touch-icon-72-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" href="{{asset('Frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
+ 
+
+</head><!--/head-->
+
+
+<body>
+    <header id="header"><!--header-->
+        <div class="header_top"><!--header_top-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="contactinfo">
+                            <ul class="nav nav-pills">
+                                <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="social-icons pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header_top-->
+        
+        <div class="header-middle"><!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a href="index.html"><img src="{{asset('Frontend/images/home/logo.png')}}" alt="" /></a>
+                        </div>
+                       
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav">
+                                
+
+                                <li><a href="{{route('account')}}"><i class="fa fa-user"></i> {{ isset(Auth::user()->name ) ? Auth::user()->name : "user"}}</a></li>
+                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                               {{--  <li><a href="{{asset('checkout.html')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                               --}} 
+                                <li><a href="{{route('cart.index')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                               
+                               <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" ><i class="fa fa-lock"></i> Logout</a></li>
+                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+    
+        <div class="header-bottom"><!--header-bottom-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="mainmenu pull-left">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                               
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </div><!--/header-bottom-->
+    </header><!--/header-->
+
 @guest
   		<div class="container text-center">
 			<div class="content-404">
@@ -118,7 +230,9 @@
 			    @endif
 
 			<div class="row">
-				<form method="POST" action="{{route('order.store')}}">
+				{{-- <form id="payment-form" method="POST" action="#"> --}}
+			 	
+				<form id="payment-form" method="POST" action="{{route('order.store')}}">
 			 		@csrf
 			 		@method('POST')
 			 		 @if(session()->has('Coupon'))
@@ -168,18 +282,27 @@
 							<li>Tax<span>INR {{$newTax}}</span></li>
 							<li>Total<span>INR {{$newtotal}}</span></li>
 							<li>SELECT PAYMENT</li>
-							<li>Cash On Delivery<span><input type="radio" id="pay" name="payment_method" value="COD">
+							<li>Cash On Delivery<span><input type="radio" onclick="javascript:yesnoCheck();" id="cod" name="payment_method" value="COD">
 </span></li>                  
-                            <li>PayPal<span><input type="radio" id="pay1"  name="payment_method" value="PayPal">
-</span></li>
-							<li>Paytm<span><input type="radio" id="pay2" name="payment_method" value="Paytm">
-</span></li>
-							<li>Stripe<span><input type="radio" id="pay3" name="payment_method" value="Stripe">
-</span></li>
-					
+                            {{-- <li>PayPal<span><input type="radio" id="pay1"  name="payment_method" value="PayPal">
+</span></li> --}}
+							{{-- <li>Paytm<span><input type="radio" id="pay2" name="payment_method" value="Paytm">
+</span></li> --}}          <li>Stripe<span><input type="radio" onclick="javascript:yesnoCheck();" id="stripe" name="payment_method" value="Stripe">
+                           </span></li>
+					       <li id="payment" style="display:none;">
+					            <label for="card-element">
+							      Credit or debit card
+							    </label>
+							    <div id="card-element">
+							  </div>
+							  <div id="card-errors" role="alert" class="text-danger"></div>
+
+							 </li>
+					    
+										
 							{{-- <li>Total <span>INR {{Cart::total()}}</span></li> --}}
 						</ul>
-				       <button class="btn btn-default check_out" href=""> To the Payment</button>
+				       <button type="submit" class="btn btn-default check_out"> To the Payment</button>
 				
 						</form>
 					</div>
@@ -189,4 +312,93 @@
 	</section><!--/#do_action-->
 
 	</section> <!--/#cart_items-->
+ <script src="{{asset('https://code.jquery.com/jquery-1.12.4.min.js')}}"></script>
+ 
+  
+<script type="text/javascript">
+
+function yesnoCheck() {
+    if (document.getElementById('stripe').checked) {
+        document.getElementById('payment').style.display = 'block';
+    }
+    else document.getElementById('payment').style.display = 'none';
+
+}
+</script>
+<script>
+ 
+var stripe = Stripe('pk_test_51H7fG9Aqd6wClRAQNf4X0tNAIOxJhP74XxwK6b30WXYqBvGMo0RhboRgGgwDCllPDZZ5AHGmS9tfw7sr0WuPg7gm00NQi965gH');
+
+// Create an instance of Elements.
+var elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+var style = {
+  base: {
+    color: '#32325d',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+// Create an instance of the card Element.
+var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>.
+card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+card.on('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+// Handle form submission.
+var form = document.getElementById('payment-form');
+
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // Inform the user if there was an error.
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      // Send the token to your server.
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+// Submit the form with the token ID.
+  function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+  
+  // Submit the form
+  form.submit();
+}
+
+
+</script>
+
 @endauth

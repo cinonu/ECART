@@ -326,12 +326,15 @@
 		getValue: function() {
 			if (this.range) {
 				return this.value;
+			
 			}
 			return this.value[0];
 		},
 
 		setValue: function(val) {
 			this.value = val;
+
+     
 
 			if (this.range) {
 				this.value[0] = Math.max(this.min, Math.min(this.max, this.value[0]));

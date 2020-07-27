@@ -4,6 +4,7 @@ use App\configuration;
 use App\order;
 use App\OrderProduct;
 use App\EmailTemplates;
+use App\User;
 
 // if (!function_exists('getconfig')) 
 // {
@@ -159,7 +160,39 @@ use App\EmailTemplates;
     //      $order = order::findOrFail(Auth::user()->id);
     //      dd($order);
     // }
+    
+    function Wishlist()
+    {
+      $user = User::all();
+      foreach($user as $people)
+      {
 
+      // $em[] = $people->email;
+      $wish = Cart::content()->groupBy('');
+      $wish = DB::table('shoppingcart')->where('instance','wishlist')
+                                ->where('identifier',$people->email)
+                                ->get();
+       
+       
 
+       foreach ($wish as $value) 
+        {
+         $pp=unserialize($value->content);
+         foreach($pp as $tt)
+         {
+            $em[] = $people->email;
+            $data[] = $tt->name;
+         } 
+        }
+       }  
+       return compact('data','em');
+    }
+     //   
+
+     // }
+    function CheckQuantity()
+    {
+    
+    }
 
 ?>

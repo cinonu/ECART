@@ -181,14 +181,16 @@ class productController extends Controller
 
     public function ProCat(Request $request)
     {
-      
        $cat_id = $request->category_id;
-       $products = Db::table('products')
-             ->join('product_images','product_images.product_id','products.id')
-             ->join('categories','categories.id','products.category_id')
-             ->where('products.category_id',$cat_id)
-             ->get();
-      // dd($products);
+       $products = DB::table('products')
+            ->where('products.category_id',$cat_id)
+            ->join('product_images','product_images.product_id','products.id')
+            ->join('categories','categories.id','products.category_id')
+            ->select('product_id','image','Product_name','Price')
+            ->groupby('product_id')
+            ->take(4)
+                                
+            ->get();
        
         return view('Frontend.procat',compact('products'));
 
@@ -201,6 +203,18 @@ class productController extends Controller
         $proAttr = ProductAttributes::where(['products_id' => $proArr[0],'size' => $proArr[1]])->first();
         echo  $proAttr->price;?>
         <input type="hidden" value="<?php echo $proAttr->price;?>" name="price">
+         <input type="hidden" value="<?php echo $proArr[1];?>" name="size">
+       
         <?php
      }
+
+    public function search(Request $Request)
+    {
+        $query = $Request->input('query');
+
+            $products = product::where('Product_name','LIKE', "%$query%")->get();
+            
+            return view('Frontend.search',compact('products'));
+        
+    } 
 }

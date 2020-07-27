@@ -13,27 +13,39 @@
 Route::resource('cart', 'Admin\\CartController');
 Route::get('/cart','Admin\\CartController@index')->name('cart.index');
 Route::Post('/cart/pro','Admin\\CartController@store')->name('cart.store');
-
-
+////////////////Category_wise_product//////////////////////////////////////////////
+Route::get('/Category-wise-products','Frontend\\CategoryWiseProductController@index')->name('Category_wise_product');
+Route::get('/cat_wise_pro','Frontend\\CategoryWiseProductController@Productdisplay');
+Route::get('/cat_wise_pro/{id?}','Frontend\\CategoryWiseProductController@show')->name('catprowise');
 route::get('/fproduct/{id}','Frontend\\ProductDisplayController@show')->name('product');
+route::get('/ajaxdata','Frontend\\CategoryWiseProductController@Pricerange')->name('ajaxprice');
 
 route::get('/account',function(){
   return view('Frontend.account');
 })->name('account');
 
-
+/////////////////////////////////////////////
 route::get('/productlist/{id}',function(){
   return view('Frontend.productlist');
 })->name('productlist');
 ///cart //////////////////////////////////////////
- 
+ route::get('/search','Admin\\productController@search')->name('search');
 ///checkout and order///////////////////////////////////
 route::get('checkout',function(){
     return view('Frontend.checkout');
-});
+})->name('checkout');
 
 Route::post('/submit-checkout','CheckOutcontroller@submitcheckout');
 // Route::get('/checkout','ApplyCouponController@Finaldiscount');
+/////////////Wishlist//////////////////////////////////////
+// Route::get('','Frontend\\WishListController@index');
+route::get('/Wishlist','Frontend\\WishListController@show')->name('Wishlistshow');
+
+route::get('Wishlist/{id}','Frontend\\WishListController@index')->name('Wishlist');
+route::delete('/Wishlist/{id}','Frontend\\WishListController@destroy')->name('clear');
+route::get('Wishl/id','Frontend\\WishListController@filteredproduct');
+
+
 
  // Route::post('/submit-order','OrdersControllers@order');
  //    Route::get('/cod','OrdersControllers@cod');
@@ -73,7 +85,7 @@ Auth::routes();
 Route::get('paypal/{id}', 'OrdersControllers@payment')->name('payment');
 Route::get('cancel', 'OrdersControllers@cancel')->name('payment.cancel');
 Route::get('payment/success', 'OrdersControllers@success')->name('payment.success');
-Route::get('/cod','OrdersControllers@cod');
+Route::get('/cod','OrdersControllers@cod')->name('cod');
     // Route::get('/paypal','OrdersController@paypal');
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////mail/////////////////////////////////////////////////
@@ -108,7 +120,13 @@ Route::get('home/','FooterController@page');
 
  });
 
+// // Password reset link request routes...
+// Route::get('password/email', 'Auth\PasswordController@getEmail');
+// Route::post('password/email', 'Auth\PasswordController@postEmail');
 
+// // Password reset routes...
+// Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+// Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
  

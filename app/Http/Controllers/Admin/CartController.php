@@ -37,16 +37,8 @@ class CartController extends Controller
        
          }
 
-         $user = Auth()->user()->email;
-         Cart::restore($user);
-    
-        // $user = Auth::user()->email;
          
-        // Cart::restore($user);
-
-        // $id = Auth::user()->id;
-        // $address = DB::table('delivery_address')->where('users_id',$id)->first();
-        // dd($address);
+        
         return view('Frontend.cart',compact('newsubtotal','newTax','newtotal'));
    
         // return view('Frontend.cart');
@@ -74,13 +66,16 @@ class CartController extends Controller
         $product = product::find($id);
         $img = $product->images->first();
         $image = $img->image;
-        (Cart::add($request->id,$request->name,1,$request->price,['img' => $image,$request->size]));
-        $user = Auth()->user()->email;
-        Cart::restore($user);
+        $size  = $request->size;
+        // dd($size);
+        (Cart::add($request->id,$request->name,1,$request->price,['img' => $image,'size'=>$size]));
+       
+        // $user = Auth()->user()->email;
+        // Cart::restore($user);
     
         
 
-        return redirect()->route('cart.index')->with('success_message','Item was added to the cart');
+        return redirect()->route('cart.index')->with('success','Item was added to the cart');
     }
 
     /**
@@ -124,7 +119,7 @@ class CartController extends Controller
     {
         $req = $request->qtyadd;
         Cart::update($rowId,$req+1);
-           $user = Auth()->user()->email;
+        $user = Auth()->user()->email;
         Cart::store($user);
       
         return redirect(url('/cart'));

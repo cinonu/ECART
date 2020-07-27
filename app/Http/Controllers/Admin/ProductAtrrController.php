@@ -99,8 +99,16 @@ class ProductAtrrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        // dd($id);
+        // foreach ($request['id'] as $key=>$attr){
+            // print_r($attr);
+           ProductAttributes::destroy($request->id);
+                        
+        // }
+          
+        return back()->with('message','Attribute deleted');
+
     }
 }
