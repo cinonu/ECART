@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
- use App\Category;
+use App\Configuration;
 use Illuminate\Http\Request;
 
-class categoriesController extends Controller
+class ConfigurationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,21 +18,18 @@ class categoriesController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 5;
+        $perPage = 25;
 
         if (!empty($keyword)) {
-            $categories = Category::where('category_name', 'LIKE', "%$keyword%")
-                ->orWhere('parent_id', 'LIKE', "%$keyword%")
+            $configurations = Configuration::where('config key', 'LIKE', "%$keyword%")
+                ->orWhere('config value', 'LIKE', "%$keyword%")
+                ->orWhere('title', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
-        } 
-        else 
-        {
-            $categories = Category::latest()->paginate($perPage);
+        } else {
+            $configurations = Configuration::latest()->paginate($perPage);
         }
-        
-        $obj = new Category();
- 
-        return view('admin.categories.index', compact('categories','obj'));
+
+        return view('admin.configurations.index', compact('configurations'));
     }
 
     /**
@@ -42,10 +39,7 @@ class categoriesController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('category_name','id');
-        
-        
-        return view('admin.categories.create',compact('categories'));
+        return view('admin.configurations.create');
     }
 
     /**
@@ -58,13 +52,14 @@ class categoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'category_name' => 'required'
+			'config_key' => 'required',
+			'config_value' => 'required'
 		]);
         $requestData = $request->all();
         
-        Category::create($requestData);
+        Configuration::create($requestData);
 
-        return redirect('admin/categories')->with('flash_message', 'category added!');
+        return redirect('admin/configurations')->with('flash_message', 'Configuration added!');
     }
 
     /**
@@ -76,9 +71,9 @@ class categoriesController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
+        $configuration = Configuration::findOrFail($id);
 
-        return view('admin.categories.show', compact('category'));
+        return view('admin.configurations.show', compact('configuration'));
     }
 
     /**
@@ -90,10 +85,9 @@ class categoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        $categories = Category::pluck('category_name','id');
+        $configuration = Configuration::findOrFail($id);
 
-        return view('admin.categories.edit', compact('category','categories'));
+        return view('admin.configurations.edit', compact('configuration'));
     }
 
     /**
@@ -107,14 +101,15 @@ class categoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'category_name' => 'required'
+			'config key' => 'required',
+			'config value' => 'required'
 		]);
         $requestData = $request->all();
         
-        $category = Category::findOrFail($id);
-        $category->update($requestData);
+        $configuration = Configuration::findOrFail($id);
+        $configuration->update($requestData);
 
-        return redirect('admin/categories')->with('flash_message', 'category updated!');
+        return redirect('admin/configurations')->with('flash_message', 'Configuration updated!');
     }
 
     /**
@@ -126,8 +121,8 @@ class categoriesController extends Controller
      */
     public function destroy($id)
     {
-        category::destroy($id);
+        Configuration::destroy($id);
 
-        return redirect('admin/categories')->with('flash_message', 'category deleted!');
+        return redirect('admin/configurations')->with('flash_message', 'Configuration deleted!');
     }
 }

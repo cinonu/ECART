@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
 
+
         /*
          * Package Service Providers...
          */
@@ -178,7 +179,10 @@ return [
         App\Providers\HelperServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
         // Skovmand\Mailchimp\MailchimpServiceProvider::class,
     ],
 
@@ -234,6 +238,8 @@ return [
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

@@ -63,7 +63,7 @@ class productController extends Controller
         
         
         return view('admin.product.create',compact('categories'));
-        // return view('admin.product.create');
+        
     }
 
     /**
@@ -76,12 +76,12 @@ class productController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			// 'category' => 'required',
-			// 'product name' => 'required',
-			// 'Price' => 'required',
-			// 'Product color' => 'required',
-			// 'Product code' => 'required',
-			// 'Product Description' => 'required'
+			'category_id' => 'required',
+			'Product_name' => 'required |regex:/^[a-zA-Z]/',
+			'Price' => 'required |regex: /^([1-9][0-9]*|0)(\.[0-9]{2})?$/',
+			'Product_color' => 'required',
+			'Product_code' => 'required',
+			'Product_Description' => 'required'
 		]);
         $requestData = $request->all();
 
@@ -143,12 +143,12 @@ class productController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			// 'category' => 'required',
-			// 'product name' => 'required',
-			// 'Price' => 'required',
-			// 'Product color' => 'required',
-			// 'Product code' => 'required',
-			// 'Product Description' => 'required'
+			 'category_id' => 'required',
+            'Product_name' => 'required |regex:/^[a-zA-Z]/',
+            'Price' => 'required |regex: /^([1-9][0-9]*|0)(\.[0-9]{2})?$/',
+            'Product_color' => 'required',
+            'Product_code' => 'required',
+            'Product_Description' => 'required'
 		]);
         $requestData = $request->all();
         

@@ -1,60 +1,26 @@
 {
     "fields": [{
-            "name": "slug",
+            "name": "config key",
             "type": "string"
         },
         {
-            "name": "image",
-            "type": "file"
+            "name": "config value",
+            "type": "string"
         },
         {
             "name": "title",
             "type": "string"
-        },
-        {
-            "name": "body",
-            "type": "text"
-        },
-        {
-            "name": "other_title",
-            "type": "string"
-        },
-        {
-            "name": "foooter",
-            "type": "string"
         }
+       
     ],
     "validations": [{
-            "field": "slug",
-            "rules": "unique"
+            "field": "config key",
+            "rules": "required"
         },
         {
-            "field": "image",
-            "rules": "required"
-        },
-         {
-            "field": "title",
-            "rules": "required"
-        },
-         {
-            "field": "body",
-            "rules": "required"
-        },
-         {
-            "field": "image",
-            "rules": "required"
-        },
-         {
-            "field": "other_title",
-            "rules": "required"
-        },
-       
-       
-       
-       
-        {
-            "field": "foooter",
+            "field": "config value",
             "rules": "required"
         }
+        
     ]
 }

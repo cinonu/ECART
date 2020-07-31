@@ -36,7 +36,7 @@
               </li>
 
                <li class="nav-item">
-                <a href="{{asset('admin/user/config')}}" class="nav-link">
+                <a href="{{asset('admin/configurations')}}" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Change Configuration</p>
                 </a>
@@ -80,12 +80,12 @@
                 </a>
               </li>
 
-              <li class="nav-item">
+             {{--  <li class="nav-item">
                 <a href="{{asset('admin/Reports')}}" class="nav-link">
                  <i class="fa fa-book"></i>
                  <p>Reports</p>
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>

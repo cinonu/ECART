@@ -34,8 +34,8 @@
   	@auth
  
         
-  	 {{-- 	{{Cart::restore(Auth()->user()->email)}}
-     --}}
+  	 	{{Cart::instance('wishlist')->restore(Auth()->user()->email)}}
+    
     <body>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -178,7 +178,7 @@
 						
 						<tr>
 							<td class="cart_product">
-							<a href=""><img src='{{ asset("upload/".$item->options->img)}}' alt=""></a>
+							<a href="{{route('product',$item->id)}}"><img  height="70" width="70" src='{{ asset("upload/".$item->options->img)}}' alt=""></a>
 							</td>
 							<td class="cart_description">
 								<h4><a href="">{{$item->name}}s</a></h4>

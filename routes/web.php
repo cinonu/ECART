@@ -144,6 +144,7 @@ Route::get('admin',function(){
  		return view('content2');
  	});
   Route::resource('admin/user', 'Admin\\UserController');
+  Route::resource('admin/configurations', 'Admin\\ConfigurationsController');
   Route::resource('admin/banners', 'Admin\\bannersController');
 	Route::resource('admin/categories', 'Admin\\categoriesController');
   Route::resource('admin/product', 'Admin\\productController');
@@ -152,6 +153,20 @@ Route::get('admin',function(){
   Route::resource('admin/Contactus','Admin\\ContactusController');
   Route::resource('admin/cms', 'Admin\\cmsController');
   Route::resource('admin/EmailTemplates','EmailTemplatesController');
+  
+  Route::get('admin','Admin\\DashboardController@show');
+  Route::get('admin/user-report','Admin\\DashboardController@showuserreport')->name('user-report');
+  Route::get('admin/order-report','Admin\\DashboardController@showorderreport')->name('order-report');
+  Route::get('admin/coupon-report','Admin\\DashboardController@showcouponreport')->name('coupon-report');
+  Route::get('admin/coupon-report/show','Admin\\DashboardController@sendshowcouponreport')->name('coupon-report-send');
+ 
+  Route::get('admin/sales-report','Admin\\DashboardController@sendshowsalesreport')->name('sales-report');
+  
+  
+  
+
+
+
   
   Route::post('admin/product/{product?}/images','Admin\\ProductImagesController@store')->name('image');
   Route::get('admin/product/{product?}/images','Admin\\ProductImagesController@create')->name('images');
@@ -162,5 +177,6 @@ Route::get('admin',function(){
 
 
  });
+
 
 

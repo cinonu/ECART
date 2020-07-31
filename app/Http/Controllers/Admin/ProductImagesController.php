@@ -23,9 +23,11 @@ class ProductImagesController extends Controller
     public function Store(Request $request)
     {
      $requestData = $request->all();
-
+        
+         
       if ($request->hasFile('Image')) 
             {
+
             $requestData['Image'] = $request->file('Image')
             ->store('Productimage', 'public');
              }

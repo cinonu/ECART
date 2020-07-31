@@ -62,10 +62,11 @@
                                    
                                 </tbody>
                             </table>
-                        
-                            {{-- <div class="pagination-wrapper"> {!! $product->appends(['search' => Request::get('search')])->render() !!} </div> --}}
+                       
                         </div>
-
+                         <ul class="pagination">
+                        <?php echo $order; ?>
+                    </ul><!--features_items-->
                     </div>
                 </div>
             </div>

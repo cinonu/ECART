@@ -8,11 +8,11 @@
     <input class="form-control" name="email" type="email" id="email" value="{{ isset($user->email) ? $user->email : ''}}" required>
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
+{{-- <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
     <label for="password" class="control-label">{{ 'Password' }}</label>
     <input class="form-control" name="password" type="password" id="password" >
     {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
-</div>
+</div> --}}
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     <label for="status" class="control-label">{{ 'Status' }}</label>
     <div class="radio">

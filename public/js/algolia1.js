@@ -10,7 +10,7 @@ autocomplete('#aa-search-input', {}, [
       templates: {
         header: '<div class="aa-suggestions-category">products</div>',
         suggestion({_highlightResult}) {
-        return `<a href="${window.location.origin}/fproduct/${_highlightResult.id.value}"><span>${_highlightResult.Product_name.value}</span></a><span>${_highlightResult.Price.value}</span>`;
+        return `<a href="fproduct/${_highlightResult.id.value}"><span>${_highlightResult.Product_name.value}</span></a><span>${_highlightResult.Price.value}</span>`;
         }
       }
     },
@@ -21,7 +21,7 @@ autocomplete('#aa-search-input', {}, [
       templates: {
         header: '<div class="aa-suggestions-category">categories</div>',
         suggestion({_highlightResult}) {
-          return `<a href="${window.location.origin}/cat_wise_pro/${_highlightResult.id.value}"><span>${_highlightResult.category_name.value}</span></a>`;
+          return `<a href="${_highlightResult.id.value}"><span>${_highlightResult.category_name.value}</span></a>`;
         }
       }
     }

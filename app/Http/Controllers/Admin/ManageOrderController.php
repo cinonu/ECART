@@ -18,7 +18,7 @@ class ManageOrderController extends Controller
      */
     public function index()
     {
-        $order = order::all();
+        $order = order::paginate(5);
 
         return view('admin.orders.index',compact('order'));
     }

@@ -10,6 +10,7 @@ use App\product;
 use App\User;
 use App\Category;
 use App\cm;
+use App\Configuration;
 use Cart;
 
 class Frontendshow extends Controller
@@ -40,12 +41,15 @@ class Frontendshow extends Controller
 
       $item = product::where('category_id',1)->take(4)->get();
 
+      $Configuration = Configuration::pluck('config_value');
+      // dd($mobile);
+
       
 
 
        // dd($pro); 
       
-   	  return view('Frontend.content',compact('banner','product','user','categories','category','featured_products','cms','item'));
+   	  return view('Frontend.content',compact('banner','product','user','categories','category','featured_products','cms','item','Configuration'));
 
    }
 

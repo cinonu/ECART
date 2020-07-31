@@ -147,18 +147,28 @@
                     <div class="left-sidebar">
                         <h2>Category</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            @foreach($category as $cat1)
                               
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                              <ul>
-
-                                <h4 class="panel-title" ><a href="{{route('catprowise',$cat1->id)}}">{{$cat1->category_name}}</a></h4>
+                               
+                                @foreach($category as $cat1)
+                                 <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="{{route('catprowise',$cat1->id)}}" @if(isset($categoryname) && $cat1->category_name == $categoryname) style="color:#FC992B" @endif >
+                                        {{$cat1->category_name}}</a></h4>
+                                </div>
+                              </div>
+                           
+                              {{--   <div class="panel-heading">
+                                  <a href="{{route('catprowise',$cat1->id)}}" @if(isset($categoryname) && $cat1->category_name == $categoryname) style="color:#FC992B" @endif > <h4 class="panel-title">{{$cat1->category_name}}</h4></a>
+                                </div>
+                               --}}  @endforeach
+                          
+                               
                              {{-- <a href="#">shirts</a></h4> --}}
                              </ul>
                                 </div>
                             </div>
-                            @endforeach
                            </div><!--/category-products-->
                     
                         
@@ -363,8 +373,8 @@
 
   </script>
   <script>
-    $(".slider-track").click(function(){
-	  var p = $(".tooltip-inner").text();
+     $('.tooltip-inner').bind('DOMSubtreeModified', function(){
+   var p = $(".tooltip-inner").text();
 	   var full_url = document.URL; // Get current url
     	var url_array = full_url.split('/'); // Split the string into an array with / as separator
     	var last_segment = url_array[url_array.length-1];  // Get the last part of the array (-1)
@@ -381,7 +391,7 @@
          $("#tag_container").empty().html(data);
         }).fail(function(jqXHR, ajaxOptions, thrownError){
 
-              alert('No response from server');
+              // alert('No response from server');
         });
 
 	});
@@ -460,8 +470,10 @@
 </script>
   <script src="{{asset('https://cdn.jsdelivr.net/npm/algoliasearch@3/dist/algoliasearchLite.min.js')}}"></script>
     <script src="{{asset('https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js')}}"></script>
-       <script src="{{asset('js/algolia.js')}}"></script>
+       <script src="{{asset('js/algolia1.js')}}"></script>
  </body>
 </html>
 
-   
+   $('mydiv').bind('DOMSubtreeModified', function(){
+  console.log('changed');
+});

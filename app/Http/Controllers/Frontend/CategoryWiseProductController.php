@@ -32,6 +32,7 @@ class CategoryWiseProductController extends Controller//This Class Is used to co
     public function show($id)
     {
         $category = Category::all();
+        $categoryname = Category::where('id',$id)->first()->category_name;
         $products = DB::table('products')
             ->where('products.category_id',$id)
             ->join('product_images','product_images.product_id','products.id')
@@ -40,7 +41,7 @@ class CategoryWiseProductController extends Controller//This Class Is used to co
             ->groupby('product_id')  
             ->paginate(15);                   
             
-        return view('Frontend.Category_wise_product',compact('products','category'));
+        return view('Frontend.Category_wise_product',compact('products','category','categoryname'));
     }
 
     public function Pricerange(Request $Request)
@@ -49,8 +50,6 @@ class CategoryWiseProductController extends Controller//This Class Is used to co
         $price_range = $Request->p;
         $category_id = $Request->id;
         $proArr = explode(":",$price_range);
-        $Request->session()->put('price',$proArr);
-        
         $products = DB::table('products')
                 ->where('products.category_id',$category_id)
                 ->where('Price', '>=',$proArr[0])
@@ -59,7 +58,7 @@ class CategoryWiseProductController extends Controller//This Class Is used to co
                 ->join('categories','categories.id','products.category_id')
                 ->select('product_id','image','Product_name','Price')
                 ->groupby('product_id') 
-                ->paginate(15);                   
+                ->paginate(3);                   
            
             if ($Request->ajax()) 
             {

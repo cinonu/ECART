@@ -2,16 +2,24 @@
 
 namespace App;
 use App\product;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 
 class Category extends Model
 {
+     use Searchable;
+
     /**
      * The database table used by the model.
      *
      * @var string
      */
+    protected static function boot()
+    {
+      static::bootTraits();
+    }
+
     protected $table = 'categories';
 
     /**

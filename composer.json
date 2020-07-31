@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "spatie/laravel-newsletter": "^4.8",
-        "srmklive/paypal": "^1.7"
+        "srmklive/paypal": "^1.7",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "appzcoder/crud-generator": "^3.1",
@@ -28,7 +29,8 @@
         "laravel/ui": "^1.2",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^8.0",
+        "khill/lavacharts" : "3.1.*"
     },
     "config": {
         "optimize-autoloader": true,
