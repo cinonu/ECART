@@ -15,6 +15,8 @@
     <link href="{{asset('Frontend/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('Frontend/css/responsive.css')}}" rel="stylesheet">
     <script src="{{asset('https://js.stripe.com/v3/')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/imageslider.css')}}">
+
 
   <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')}}"></script>
   {{-- <script src="{{asset('ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js')}}"></script>        --}}

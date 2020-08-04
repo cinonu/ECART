@@ -56,7 +56,7 @@ class OrdersControllers extends Controller
                 ],
             ]);
          $order = $this->addToOrdersTables($Request, null);
-
+          $this->decreaseQuantities();
             Cart::instance('default')->destroy();
             session()->forget('coupon');
            $user = Auth()->user()->email;
@@ -74,53 +74,6 @@ class OrdersControllers extends Controller
           
         }
     }
-        // dd($Request->all());
-        // $this->decreaseQuantities();
-        // dd();
-        
-        //  $order = new order();
-        //  $order->users_id = request('users_id');
-        //  $order->users_email = request('users_email');
-        //  $order->name = request('name');
-        //  $order->address = request('address');
-        //  $order->city = request('city');
-        //  $order->state = request('state');
-        //  $order->pincode = request('pincode');
-        //  $order->mobile = request('mobile');
-        //  $order->shipping_charges = request('shipping_charges');
-        //  $order->coupon_code = request('coupon_code');
-        //  $order->payment_method = request('payment_method');
-        //  $order->coupon_amount = session()->get('Coupon')['discount'] ?? 0;
-        //  $order->product_name = productdetails()->get('product_name');
-        //  $order->product_image = productdetails()->get('product_image');
-        //  $order->grand_total = getprice()->get('newTotal');
-        //  $order->product_id = request('product_id');
-        //  $order->product_qty = productdetails()->get('product_qty'); 
-         
-        //   $order->save();
-      
-        //  foreach(Cart::content() as $item)
-
-        //  {
-        //     OrderProduct::create([
-        //         'order_id' => $order->id,
-        //         'product_id' => $item->id,
-        //         'quantity' => $item->qty,
-        //     ]);
-        //  }
-        
-
-          
-       // Orderstore($Request,$error);
-        
-        // if(request('payment_method')=="COD")
-        // {
-        //     return redirect('/cod');
-        // }
-        // // else
-        // {
-        //     return redirect('/paypal/'.$order->id);
-        // }
         
      
 

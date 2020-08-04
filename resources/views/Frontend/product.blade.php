@@ -7,28 +7,37 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="{{asset("upload/".$images[0]->image)}}" alt="" />
+									@foreach($images as $img)
+										
+								 <div class="mySlides">
+		
+							      <img src="{{ asset("upload/".$img->image)}}" style="width:100%">
+							  </div>
+                                  @endforeach
+   
 								<h3>{{$product->Product_color}}</h3>
 							</div>
-							<div id="similar-product" class="carousel slide" data-ride="carousel">
+							{{-- <div id="similar-product" class="carousel slide" data-ride="carousel"> --}}
 								
 								  <!-- Wrapper for slides -->
 								    <div class="carousel-inner">
-										<div class="item active">
-										  <a href=""><img src="{{asset('Frontend/images/product-details/similar1.jpg')}}" alt=""></a>
-										  <a href=""><img src="{{asset('Frontend/images/product-details/similar2.jpg')}}" alt=""></a>
-										  <a href=""><img src="{{asset('Frontend/images/product-details/similar3.jpg')}}" alt=""></a>
-										</div>
+								    	<div class="row">
+								    		<?php $i=1; ?>
+								    		@foreach($images as $img)
+										 <div class="column">
+									      <img class="demo cursor" src="{{ asset("upload/".$img->image)}}" style="width:100%" onclick="currentSlide(<?php  echo $i; ?>)" alt="The Woods">
+									    </div>
+									    <?php $i++; ?>
+								    		
+									    @endforeach
+									    </div>
 									</div>
 
 								  <!-- Controls -->
-								  <a class="left item-control" href="#similar-product" data-slide="prev">
-									<i class="fa fa-angle-left"></i>
-								  </a>
-								  <a class="right item-control" href="#similar-product" data-slide="next">
-									<i class="fa fa-angle-right"></i>
-								  </a>
-							</div>
+								  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+							{{-- </div> --}}
 
 						</div>
 
@@ -452,8 +461,8 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="footer-widget">
+			
+   	<div class="footer-widget">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-2">
@@ -529,15 +538,22 @@
 		</div>
 		
 	</footer><!--/Footer-->
-	
 
-  
+	 <script type="text/javascript" src="{{asset('https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js')}}"></script>
+<script type="text/javascript">
+	$("#zoom_01").ezPlus();
+</script>
+
+  <script type="text/javascript" src="{{asset('http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js')}}"></script>
     <script src="{{asset('js/jquery.js')}}"></script>
 	<script src="{{asset('js/price-range.js')}}"></script>
     <script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
 	<script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
+     <script src="{{asset('js/imageslider.js')}}"></script>
+	
     @include('Frontend.productprice');
+
 </body>
 </html>

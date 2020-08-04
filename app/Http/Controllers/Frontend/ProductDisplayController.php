@@ -16,6 +16,7 @@ class ProductDisplayController extends Controller
     {
       $product = product::where('id',$id)->first();
       $images = $product->images->all();
+      // dd($images);
      
       $code=$product->Product_code;
       
@@ -28,7 +29,7 @@ class ProductDisplayController extends Controller
                                   ->get();
 
 
-                                  // 
+      
        
       return view('Frontend.product',compact('product','images','Same_product','pro'));
     }
